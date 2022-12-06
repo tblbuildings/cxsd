@@ -25,6 +25,8 @@ npm install cxsd
 npm run cxsd http://localhost:8080/main.xsd
 ```
 
+The converted files will be in `xmlns` folder.
+
 TBL Manual Changes
 -----
 
