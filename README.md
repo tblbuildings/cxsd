@@ -5,6 +5,36 @@ cxsd
 [![dependency status](https://david-dm.org/charto/cxsd.svg)](https://david-dm.org/charto/cxsd)
 [![npm version](https://img.shields.io/npm/v/cxsd.svg)](https://www.npmjs.com/package/cxsd)
 
+TBL Usage
+-----
+
+`cxsd` is a streaming XSD and XML parser generator for Node.js and TypeScript. It downloads all referenced `.xsd` files and outputs two files for each defined namespace. So for cxsd to work you need to make the XSD schema accessible from http. Follow this guideline to make the schema accessible by http.
+
+```bash
+npm install http-server -g
+cd /<path-to-csd-repo>/lib/portfoliomanager-schemas-19.0
+http-server .
+```
+
+Once schema is accessible open another terminal window and follow below commands.
+
+```bash
+npm install
+npm run prepublish
+npm install cxsd
+npm run cxsd http://localhost:8080/main.xsd
+```
+
+TBL Manual Changes
+-----
+
+- File include Resolve Problem: Some referenced files which were in same sub-folder (`<xs:include schemaLocation="characteristics.xsd"/>`) were not able to be download by tool so they were changed to (`<xs:include schemaLocation="../propertyUse/characteristics.xsd"/>`). This change added the sub-folder in the path to resolve the not found error.
+- Interger type enums: Enums of type number (0, 1, 2, etc.,) in xsd schema were incorrectly converted as string ("0", "1", etc.,). So they were changed back to (0, 1, 2, etc.,) manually.
+- Targetns problem: Attribute `targetNamespace="energy-star-tbl/index"` was added to `xs:schema` in `main.xsd` file to tell `cxsd` on where to add the converted files.
+
+Information
+-----
+
 ![Atom screenshot](src/screenshot.png)
 
 `cxsd` is a streaming XSD parser and XML parser generator for Node.js and
