@@ -8,6 +8,7 @@
 <xs:include schemaLocation="../common/irrigatedArea.xsd"/>
 <xs:include schemaLocation="../common/audit.xsd"/>
 <xs:include schemaLocation="../authorization/authorization.xsd"/>
+<xs:include schemaLocation="../property/federalAgency.xsd" />
 <!--
      BASIC OPERATION ELEMENTS
 -->

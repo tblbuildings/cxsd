@@ -11,19 +11,18 @@
 					<xs:annotation>
 						<xs:documentation>The username for your customer's account.</xs:documentation>
 					</xs:annotation>
-					
 					<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:minLength value="1"/>
-						<xs:maxLength value="60"/>
-					</xs:restriction>
-				</xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="60"/>
+						</xs:restriction>
+					</xs:simpleType>
 				</xs:element>
-                <xs:element name="includeTestPropertiesInGraphics" type="xs:boolean" minOccurs="0">
-                    <xs:annotation>
-                        <xs:documentation>This indicates if the Test Property in the account is included in the graphs on My Portfolio page. If true then test property is included and if false then Test property is excluded.</xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+        <xs:element name="includeTestPropertiesInGraphics" type="xs:boolean" minOccurs="0">
+          <xs:annotation>
+              <xs:documentation>This indicates if the Test Property in the account is included in the graphs on My Portfolio page. If true then test property is included and if false then Test property is excluded.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
 				<xs:element name="emailPreferenceCanadianAccount" type="xs:boolean" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Contact me with training opportunities, tool updates, program news and other information about the ENERGY STAR program.</xs:documentation>

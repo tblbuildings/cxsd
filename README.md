@@ -25,7 +25,13 @@ npm install cxsd
 npm run cxsd http://localhost:8080/main.xsd
 ```
 
-The converted files will be in `xmlns` folder.
+The converted files will be in `xmlns` folder. After that copy the generated library folder from `xmlns` folder to `dist/energy-star-tbl` folder.
+
+```bash
+cp -r xmlns/energy-star-tbl-v19.0 dist/energy-star-tbl/
+```
+
+After that run next command in BE repo `npm i github:tblbuildings/cxsd#energy-star-tbl --save`
 
 TBL Manual Changes
 -----
@@ -33,6 +39,63 @@ TBL Manual Changes
 - File include Resolve Problem: Some referenced files which were in same sub-folder (`<xs:include schemaLocation="characteristics.xsd"/>`) were not able to be download by tool so they were changed to (`<xs:include schemaLocation="../propertyUse/characteristics.xsd"/>`). This change added the sub-folder in the path to resolve the not found error.
 - Interger type enums: Enums of type number (0, 1, 2, etc.,) in xsd schema were incorrectly converted as string ("0", "1", etc.,). So they were changed back to (0, 1, 2, etc.,) manually.
 - Targetns problem: Attribute `targetNamespace="energy-star-tbl/index"` was added to `xs:schema` in `main.xsd` file to tell `cxsd` on where to add the converted files.
+- For `_meterConsumptionType` add following
+```typescript
+  id: number;
+  startDate: Date;
+  endDate: Date;
+  usage: number;
+  cost: optionalCost;
+  energyExportedOffSite: number;
+  greenPower: greenPowerType;
+  RECOwnership: 'Owned' | 'Sold' | 'Arbitrage';
+  demandTracking: demandTrackingType;
+  audit: logType;
+```
+- For `_meterDeliveryType` add following
+```typescript
+  id: number;
+  deliveryDate: Date;
+  quantity: number;
+  cost: optionalCost;
+  audit: logType;
+```
+- For `_meterType` add following
+```typescript
+  id: number;
+  type: typeOfMeter;
+  name: string;
+  metered: boolean;
+  unitOfMeasure: designUnitOfMeasure;
+  firstBillDate: Date;
+  inUse: boolean;
+  inactiveDate: Date;
+  otherDescription: string;
+  accessLevel: shareLevelType;
+  aggregateMeter: boolean;
+  audit: logType;
+```
+- For `_propertyType` add following
+```typescript
+  name: string;
+  constructionStatus: constructionStatusType;
+  primaryFunction: primaryFunctionType;
+  grossFloorArea: grossFloorAreaType;
+  irrigatedArea: irrigationAreaType;
+  yearBuilt: number;
+  address: addressType;
+  numberOfBuildings: number;
+  isFederalProperty: boolean;
+  federalOwner: countryList;
+  agency: AgencyType;
+  agencyDepartmentRegion: string;
+  federalCampus: string;
+  occupancyPercentage: OccupancyType;
+  notes: string;
+  isInstitutionalProperty: boolean;
+  accessLevel: shareLevelType;
+  audit: logType;
+```
 
 Information
 -----
