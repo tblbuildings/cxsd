@@ -31,7 +31,7 @@ The converted files will be in `xmlns` folder. After that copy the generated lib
 cp -r xmlns/energy-star-tbl-v19.0 dist/energy-star-tbl/
 ```
 
-After that run next command in BE repo `npm i github:tblbuildings/cxsd#energy-star-tbl --save`
+After that run next command in BE repo `npm i github:tblbuildings/cxsd#release --save`
 
 TBL Manual Changes
 -----
