@@ -1,0 +1,1 @@
+export * from './dist/energy-star-tbl/energy-star-tbl-v19.0'
