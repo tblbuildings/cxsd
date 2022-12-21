@@ -5,3 +5,9 @@ cache/
 *.log
 *.tgz
 .DS_Store
+typings-custom/
+cxsd-cli.js
+tsconfig.json
+typings.json
+typings/
+.travis.yml

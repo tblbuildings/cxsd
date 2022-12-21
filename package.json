@@ -2,9 +2,6 @@
   "name": "@tblbuildings/cxsd",
   "version": "0.1.1",
   "description": "Streaming XSD parser and XML parser generator with TypeScript output",
-  "bin": {
-    "cxsd": "cxsd-cli.js"
-  },
   "scripts": {
     "tsc": "tsc",
     "typings": "typings",
@@ -16,7 +13,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tblbuildings/cxsd.git"
+    "url": "git+https://github.com/tblbuildings/cxsd.git#release"
   },
   "bugs": {
     "url": "https://github.com/charto/cxsd/issues"
