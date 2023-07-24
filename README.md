@@ -37,7 +37,7 @@ TBL Manual Changes
 -----
 
 - File include Resolve Problem: Some referenced files which were in same sub-folder (`<xs:include schemaLocation="characteristics.xsd"/>`) were not able to be download by tool so they were changed to (`<xs:include schemaLocation="../propertyUse/characteristics.xsd"/>`). This change added the sub-folder in the path to resolve the not found error.
-- Interger type enums: Enums of type number (0, 1, 2, etc.,) in xsd schema were incorrectly converted as string ("0", "1", etc.,). So they were changed back to (0, 1, 2, etc.,) manually.
+- Integer type enums: Enums of type number (0, 1, 2, etc.,) in xsd schema were incorrectly converted as string ("0", "1", etc.,). So they were changed back to (0, 1, 2, etc.,) manually.
 - Targetns problem: Attribute `targetNamespace="energy-star-tbl/index"` was added to `xs:schema` in `main.xsd` file to tell `cxsd` on where to add the converted files.
 - For `_meterConsumptionType` add following
 ```typescript
