@@ -8,7 +8,7 @@
   "scripts": {
     "tsc": "tsc",
     "typings": "typings",
-    "prepublish": "typings install && tsc",
+    "_prepublish": "typings install && tsc",
     "test": "node cxsd-cli.js --help"
   },
   "author": "Juha Järvi",
