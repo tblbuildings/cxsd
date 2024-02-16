@@ -20,7 +20,7 @@ Once schema is accessible open another terminal window and follow below commands
 
 ```bash
 npm install
-npm run prepublish
+npm run _prepublish
 npm install cxsd
 npm run cxsd http://localhost:8080/main.xsd
 ```

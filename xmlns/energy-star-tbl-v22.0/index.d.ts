@@ -17,6 +17,11 @@ import * as Primitive from '../xml-primitives';
 // http://localhost:8080/common/grossFloorArea.xsd
 // http://localhost:8080/common/irrigatedArea.xsd
 // http://localhost:8080/common/links.xsd
+// http://localhost:8080/common/ped.xsd
+// http://localhost:8080/common/simpleTypes.xsd
+// http://localhost:8080/enum/meterCategoryType.xsd
+// http://localhost:8080/enum/periodTypeEnum.xsd
+// http://localhost:8080/enum/reportingEnums.xsd
 // http://localhost:8080/hey/hey.xsd
 // http://localhost:8080/main.xsd
 // http://localhost:8080/mapping/mapping.xsd
@@ -47,9 +52,11 @@ import * as Primitive from '../xml-primitives';
 // http://localhost:8080/propertyUse/convenienceStoreWithGasStation.xsd
 // http://localhost:8080/propertyUse/convenienceStoreWithoutGasStation.xsd
 // http://localhost:8080/propertyUse/courthouse.xsd
+// http://localhost:8080/propertyUse/customUse.xsd
 // http://localhost:8080/propertyUse/dataCenter.xsd
 // http://localhost:8080/propertyUse/distributionCenter.xsd
 // http://localhost:8080/propertyUse/drinkingWaterTreatmentAndDistribution.xsd
+// http://localhost:8080/propertyUse/evChargingStation.xsd
 // http://localhost:8080/propertyUse/financialOffice.xsd
 // http://localhost:8080/propertyUse/foodSales.xsd
 // http://localhost:8080/propertyUse/hospital.xsd
@@ -57,8 +64,11 @@ import * as Primitive from '../xml-primitives';
 // http://localhost:8080/propertyUse/iceCurlingRink.xsd
 // http://localhost:8080/propertyUse/indoorArena.xsd
 // http://localhost:8080/propertyUse/k12School.xsd
+// http://localhost:8080/propertyUse/library.xsd
+// http://localhost:8080/propertyUse/mailingCenterPostOffice.xsd
 // http://localhost:8080/propertyUse/medicalOffice.xsd
 // http://localhost:8080/propertyUse/multifamilyHousing.xsd
+// http://localhost:8080/propertyUse/museum.xsd
 // http://localhost:8080/propertyUse/nonRefrigeratedWarehouse.xsd
 // http://localhost:8080/propertyUse/office.xsd
 // http://localhost:8080/propertyUse/otherPropertyUses.xsd
@@ -78,9 +88,20 @@ import * as Primitive from '../xml-primitives';
 // http://localhost:8080/propertyUse/supermarket.xsd
 // http://localhost:8080/propertyUse/swimmingPool.xsd
 // http://localhost:8080/propertyUse/useDetailsRevisions.xsd
+// http://localhost:8080/propertyUse/vehicleDealership.xsd
 // http://localhost:8080/propertyUse/wastewaterTreatmentPlant.xsd
 // http://localhost:8080/propertyUse/wholesaleClubSupercenter.xsd
 // http://localhost:8080/propertyUse/worshipFacility.xsd
+// http://localhost:8080/reports/dataRequest.xsd
+// http://localhost:8080/reports/dataResponse.xsd
+// http://localhost:8080/reports/dataResponseStatus.xsd
+// http://localhost:8080/reports/report.xsd
+// http://localhost:8080/reports/reportError.xsd
+// http://localhost:8080/reports/reportMetrics.xsd
+// http://localhost:8080/reports/reportStatus.xsd
+// http://localhost:8080/reports/reportTemplate.xsd
+// http://localhost:8080/reports/sendDataResponse.xsd
+// http://localhost:8080/reports/timeframe.xsd
 // http://localhost:8080/response/hierarchy.xsd
 // http://localhost:8080/response/response.xsd
 // http://localhost:8080/targetFinder/targetFinder.xsd
@@ -277,6 +298,16 @@ export var billboardMetricType: { new(): billboardMetricType };
 export type categoryType = ("Recommissioning (Stage 1)" | "Lighting (Stage 2)" | "Load Reductions (Stage 3)" | "Fan Systems (Stage 4)" | "Heating & Cooling Plant (Stage 5)" | "Behavioral/Outreach" | "Other Technologies/Strategies");
 interface _categoryType extends Primitive._string { content: categoryType; }
 
+interface _ceilingHeightUnitsType extends _useAttributeBase {
+	units: lengthUnitsType;
+	value?: number;
+}
+export interface ceilingHeightUnitsType extends _ceilingHeightUnitsType { constructor: { new(): ceilingHeightUnitsType }; }
+export var ceilingHeightUnitsType: { new(): ceilingHeightUnitsType };
+
+type ceilingHeightUnitsTypeValueType = number;
+type _ceilingHeightUnitsTypeValueType = Primitive._number;
+
 interface _clearHeightUnitsType extends _useAttributeBase {
 	units: lengthUnitsType;
 	value?: number;
@@ -356,12 +387,50 @@ interface _CustomFieldTypeValidCharactersType extends Primitive._string { conten
 type CustomFieldTypeWhenToPromptType = ("Once" | "Property" | "Meter");
 interface _CustomFieldTypeWhenToPromptType extends Primitive._string { content: CustomFieldTypeWhenToPromptType; }
 
+export type customUnitsType = ("Feet" | "Gallons (US)" | "Gallons (UK)" | "Kilogram" | "Meters" | "Tonnes (metric)" | "Other" | "Pounds" | "Square Feet" | "Square Meters" | "Tons (short)");
+interface _customUnitsType extends Primitive._string { content: customUnitsType; }
+
+interface _customUseDetailsType extends _useAttributeBase {
+	dataType: customUseDetailsTypeDataTypeType;
+	units: customUnitsType;
+	customName?: string;
+	customUom?: string;
+	value?: string;
+}
+export interface customUseDetailsType extends _customUseDetailsType { constructor: { new(): customUseDetailsType }; }
+export var customUseDetailsType: { new(): customUseDetailsType };
+
+type customUseDetailsTypeDataTypeType = ("numeric" | "string");
+interface _customUseDetailsTypeDataTypeType extends Primitive._string { content: customUseDetailsTypeDataTypeType; }
+
+interface _customUseType extends BaseType {}
+export interface customUseType extends _customUseType { constructor: { new(): customUseType }; }
+export var customUseType: { new(): customUseType };
+
 interface _dataCenterType extends BaseType {}
 export interface dataCenterType extends _dataCenterType { constructor: { new(): dataCenterType }; }
 export var dataCenterType: { new(): dataCenterType };
 
 interface _DataExchangeSettingsType extends BaseType {}
 interface DataExchangeSettingsType extends _DataExchangeSettingsType { constructor: { new(): DataExchangeSettingsType }; }
+
+interface _dataRequest extends BaseType {
+	/** The unique identifier of the data request. */
+	id: number;
+}
+export interface dataRequest extends _dataRequest { constructor: { new(): dataRequest }; }
+export var dataRequest: { new(): dataRequest };
+
+/** The status of the Data Request. */
+export type dataRequestStatusType = ("OPEN" | "CLOSED" | "ALL");
+interface _dataRequestStatusType extends Primitive._string { content: dataRequestStatusType; }
+
+interface _dataResponse extends BaseType {
+	/** The unique identifier of the data response. */
+	id: number;
+}
+export interface dataResponse extends _dataResponse { constructor: { new(): dataResponse }; }
+export var dataResponse: { new(): dataResponse };
 
 export type dataType = ("date" | "numeric" | "string");
 interface _dataType extends Primitive._string { content: dataType; }
@@ -484,6 +553,10 @@ export var estimatedEnergyType: { new(): estimatedEnergyType };
 interface _evaluationPeriodType extends BaseType {}
 export interface evaluationPeriodType extends _evaluationPeriodType { constructor: { new(): evaluationPeriodType }; }
 export var evaluationPeriodType: { new(): evaluationPeriodType };
+
+interface _evChargingStationType extends BaseType {}
+export interface evChargingStationType extends _evChargingStationType { constructor: { new(): evChargingStationType }; }
+export var evChargingStationType: { new(): evChargingStationType };
 
 /** Represents a list of federal agencies. */
 interface _FederalAgenciesType extends BaseType {
@@ -646,6 +719,10 @@ export var lengthOfAllOpenClosedRefrigerationUnitsType: { new(): lengthOfAllOpen
 export type lengthUnitsType = ("Feet" | "Meters");
 interface _lengthUnitsType extends Primitive._string { content: lengthUnitsType; }
 
+interface _libraryType extends BaseType {}
+export interface libraryType extends _libraryType { constructor: { new(): libraryType }; }
+export var libraryType: { new(): libraryType };
+
 /** List of licenses for Professional Designation of the verifier. */
 interface _LicenseListType extends BaseType {
 	license?: LicenseType[];
@@ -664,6 +741,8 @@ export interface linksType extends _linksType { constructor: { new(): linksType 
 export var linksType: { new(): linksType };
 
 interface _linkType extends BaseType {
+	/** A brief description of the information returned from the link. */
+	hint: string;
 	/** The HTTP method to the web service call. */
 	httpMethod: string;
 	/** Indicates the unique Portfolio Manager identifier used to define this entity. */
@@ -693,6 +772,10 @@ interface _logType extends BaseType {
 export interface logType extends _logType { constructor: { new(): logType }; }
 export var logType: { new(): logType };
 
+interface _mailingCenterPostOfficeType extends BaseType {}
+export interface mailingCenterPostOfficeType extends _mailingCenterPostOfficeType { constructor: { new(): mailingCenterPostOfficeType }; }
+export var mailingCenterPostOfficeType: { new(): mailingCenterPostOfficeType };
+
 interface _mappingType extends BaseType {
 	/** The id of the account, property, or meter needed to reference a customer, property, or meter for a given external identifier from ABS 2.5. */
 	id?: number;
@@ -704,18 +787,21 @@ interface _medicalOfficeType extends BaseType {}
 export interface medicalOfficeType extends _medicalOfficeType { constructor: { new(): medicalOfficeType }; }
 export var medicalOfficeType: { new(): medicalOfficeType };
 
+export type meterCategoryType = ("ENERGY" | "WATER" | "WASTE");
+interface _meterCategoryType extends Primitive._string { content: meterCategoryType; }
+
 /** A service type used for representing a meter consumption entry */
 interface _meterConsumptionType extends BaseType {
 	id: number;
-  startDate: Date;
-  endDate: Date;
-  usage: number;
-  cost: optionalCost;
-  energyExportedOffSite: number;
-  greenPower: greenPowerType;
-  RECOwnership: 'Owned' | 'Sold' | 'Arbitrage';
-  demandTracking: demandTrackingType;
-  audit: logType;
+	startDate: Date;
+	endDate: Date;
+	usage: number;
+	cost: optionalCost;
+	energyExportedOffSite: number;
+	greenPower: greenPowerType;
+	RECOwnership: 'Owned' | 'Sold' | 'Arbitrage';
+	demandTracking: demandTrackingType;
+	audit: logType;
 	/** Whether the meter consumption is an estimated value. */
 	estimatedValue?: boolean;
 	/** Whether the meter is for Green Power. */
@@ -737,10 +823,10 @@ export var meterDataType: { new(): meterDataType };
 /** Delivery data used for a meter that is set up for bulk delivery. */
 interface _meterDeliveryType extends BaseType {
 	id: number;
-  deliveryDate: Date;
-  quantity: number;
-  cost: optionalCost;
-  audit: logType;
+	deliveryDate: Date;
+	quantity: number;
+	cost: optionalCost;
+	audit: logType;
 	estimatedValue?: boolean;
 }
 export interface meterDeliveryType extends _meterDeliveryType { constructor: { new(): meterDeliveryType }; }
@@ -760,24 +846,28 @@ export var meterPropertyAssociationListType: { new(): meterPropertyAssociationLi
 /** A service type used for representing a meter */
 interface _meterType extends BaseType {
 	id: number;
-  type: typeOfMeter;
-  name: string;
-  metered: boolean;
-  unitOfMeasure: designUnitOfMeasure;
-  firstBillDate: Date;
-  inUse: boolean;
-  inactiveDate: Date;
-  otherDescription: string;
-  accessLevel: shareLevelType;
-  aggregateMeter: boolean;
-  audit: logType;
+	type: typeOfMeter;
+	name: string;
+	metered: boolean;
+	unitOfMeasure: designUnitOfMeasure;
+	firstBillDate: Date;
+	inUse: boolean;
+	inactiveDate: Date;
+	otherDescription: string;
+	accessLevel: shareLevelType;
+	aggregateMeter: boolean;
+	audit: logType;
 }
 export interface meterType extends _meterType { constructor: { new(): meterType }; }
 export var meterType: { new(): meterType };
 
 interface _metric extends BaseType {
+	/** Indicates whether the metric is automatically generated by the system. */
+	autoGenerated: boolean;
 	/** The data type of the value for the metric (i.e., string, numeric, date). */
 	dataType: dataType;
+	/** The id of the metric. */
+	id: number;
 	/** The name of the metric. */
 	name: string;
 	/** The unit of measure of the metric. */
@@ -811,6 +901,10 @@ type _monthsSchoolInUseTypeValueType = Primitive._number;
 interface _multifamilyHousingType extends BaseType {}
 export interface multifamilyHousingType extends _multifamilyHousingType { constructor: { new(): multifamilyHousingType }; }
 export var multifamilyHousingType: { new(): multifamilyHousingType };
+
+interface _museumType extends BaseType {}
+export interface museumType extends _museumType { constructor: { new(): museumType }; }
+export var museumType: { new(): museumType };
 
 export type noNegativePrecision = number;
 type _noNegativePrecision = Primitive._number;
@@ -929,6 +1023,19 @@ interface _parkingType extends BaseType {}
 export interface parkingType extends _parkingType { constructor: { new(): parkingType }; }
 export var parkingType: { new(): parkingType };
 
+interface _ped extends BaseType {
+	month: number;
+	year: number;
+}
+export interface ped extends _ped { constructor: { new(): ped }; }
+export var ped: { new(): ped };
+
+type pedMonthType = number;
+type _pedMonthType = Primitive._number;
+
+type pedYearType = number;
+type _pedYearType = Primitive._number;
+
 interface _pendingAccountsType extends BaseType {
 	/** The id of the Portfolio Manager Account requesting to connect with you. */
 	accountId: number;
@@ -1040,6 +1147,9 @@ interface _performanceTargetTypeTargetMetricType extends Primitive._string { con
 type performanceTargetTypeTargetValueType = (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99 | 100);
 interface _performanceTargetTypeTargetValueType extends Primitive._number { content: performanceTargetTypeTargetValueType; }
 
+export type periodType = ("CURRENT" | "BASELINE");
+interface _periodType extends Primitive._string { content: periodType; }
+
 interface _PgpListType extends BaseType {
 	/** Power Generation Plant information */
 	pgp?: PgpType[];
@@ -1091,7 +1201,7 @@ interface _poolTypeValueType extends Primitive._string { content: poolTypeValueT
 export type primaryBusinessType = ("Architecture/Design Firm" | "Banking/Financial" | "Commercial Real Estate" | "Congregation/Faith-Based Organization" | "Data Center" | "Drinking Water Treatment/Distribution" | "Education" | "Energy Efficiency Program" | "Entertainment/Recreation" | "Food Service" | "Government: Local (U.S.)" | "Government: Outside U.S." | "Government: State (U.S.)" | "Government: Federal (U.S.)" | "Healthcare" | "Hospitality" | "Legal Services" | "Manufacturing/Industrial" | "Media" | "Multifamily Housing" | "Retail" | "Senior Care" | "Service and Product Provider/Consultant" | "Transportation" | "Utility" | "Wastewater Treatment" | "Other");
 interface _primaryBusinessType extends Primitive._string { content: primaryBusinessType; }
 
-export type primaryFunctionType = ("Adult Education" | "Ambulatory Surgical Center" | "Aquarium" | "Automobile Dealership" | "Bank Branch" | "Bar/Nightclub" | "Barracks" | "Bowling Alley" | "Casino" | "College/University" | "Convenience Store with Gas Station" | "Convenience Store without Gas Station" | "Convention Center" | "Courthouse" | "Data Center" | "Distribution Center" | "Drinking Water Treatment & Distribution" | "Enclosed Mall" | "Energy/Power Station" | "Fast Food Restaurant" | "Financial Office" | "Fire Station" | "Fitness Center/Health Club/Gym" | "Food Sales" | "Food Service" | "Hospital (General Medical & Surgical)" | "Hotel" | "Ice/Curling Rink" | "Indoor Arena" | "K-12 School" | "Laboratory" | "Library" | "Lifestyle Center" | "Mailing Center/Post Office" | "Manufacturing/Industrial Plant" | "Medical Office" | "Mixed Use Property" | "Movie Theater" | "Multifamily Housing" | "Museum" | "Non-Refrigerated Warehouse" | "Office" | "Other - Education" | "Other - Entertainment/Public Assembly" | "Other - Lodging/Residential" | "Other - Mall" | "Other - Public Services" | "Other - Recreation" | "Other - Restaurant/Bar" | "Other - Services" | "Other - Stadium" | "Other - Technology/Science" | "Other - Utility" | "Other" | "Other/Specialty Hospital" | "Outpatient Rehabilitation/Physical Therapy" | "Parking" | "Performing Arts" | "Personal Services (Health/Beauty, Dry Cleaning, etc)" | "Police Station" | "Pre-school/Daycare" | "Prison/Incarceration" | "Race Track" | "Refrigerated Warehouse" | "Repair Services (Vehicle, Shoe, Locksmith, etc)" | "Residence Hall/Dormitory" | "Residential Care Facility" | "Restaurant" | "Retail Store" | "Roller Rink" | "Self-Storage Facility" | "Senior Living Community" | "Single Family Home" | "Social/Meeting Hall" | "Stadium (Closed)" | "Stadium (Open)" | "Strip Mall" | "Supermarket/Grocery Store" | "Swimming Pool" | "Transportation Terminal/Station" | "Urgent Care/Clinic/Other Outpatient" | "Veterinary Office" | "Vocational School" | "Wastewater Treatment Plant" | "Wholesale Club/Supercenter" | "Worship Facility" | "Zoo");
+export type primaryFunctionType = ("Adult Education" | "Ambulatory Surgical Center" | "Aquarium" | "Bank Branch" | "Bar/Nightclub" | "Barracks" | "Bowling Alley" | "Casino" | "College/University" | "Convenience Store with Gas Station" | "Convenience Store without Gas Station" | "Convention Center" | "Courthouse" | "Data Center" | "Distribution Center" | "Drinking Water Treatment & Distribution" | "Electric Vehicle Charging Station" | "Enclosed Mall" | "Energy/Power Station" | "Fast Food Restaurant" | "Financial Office" | "Fire Station" | "Fitness Center/Health Club/Gym" | "Food Sales" | "Food Service" | "Hospital (General Medical & Surgical)" | "Hotel" | "Ice/Curling Rink" | "Indoor Arena" | "K-12 School" | "Laboratory" | "Library" | "Lifestyle Center" | "Mailing Center/Post Office" | "Manufacturing/Industrial Plant" | "Medical Office" | "Mixed Use Property" | "Movie Theater" | "Multifamily Housing" | "Museum" | "Non-Refrigerated Warehouse" | "Office" | "Other - Education" | "Other - Entertainment/Public Assembly" | "Other - Lodging/Residential" | "Other - Mall" | "Other - Public Services" | "Other - Recreation" | "Other - Restaurant/Bar" | "Other - Services" | "Other - Stadium" | "Other - Technology/Science" | "Other - Utility" | "Other" | "Other/Specialty Hospital" | "Outpatient Rehabilitation/Physical Therapy" | "Parking" | "Performing Arts" | "Personal Services (Health/Beauty, Dry Cleaning, etc)" | "Police Station" | "Pre-school/Daycare" | "Prison/Incarceration" | "Race Track" | "Refrigerated Warehouse" | "Repair Services (Vehicle, Shoe, Locksmith, etc)" | "Residence Hall/Dormitory" | "Residential Care Facility" | "Restaurant" | "Retail Store" | "Roller Rink" | "Self-Storage Facility" | "Senior Living Community" | "Single Family Home" | "Social/Meeting Hall" | "Stadium (Closed)" | "Stadium (Open)" | "Strip Mall" | "Supermarket/Grocery Store" | "Swimming Pool" | "Transportation Terminal/Station" | "Urgent Care/Clinic/Other Outpatient" | "Vehicle Dealership" | "Veterinary Office" | "Vocational School" | "Wastewater Treatment Plant" | "Wholesale Club/Supercenter" | "Worship Facility" | "Zoo");
 interface _primaryFunctionType extends Primitive._string { content: primaryFunctionType; }
 
 /** Represents a list of professional designations of the verifier. */
@@ -1124,6 +1234,8 @@ export var propertyMetricsList: { new(): propertyMetricsList };
 interface _propertyMetricsType extends BaseType {
 	/** The month of the period ending date for the set of metrics. */
 	month: number;
+	/** The predefined period type used to generate the report metric */
+	periodType: periodType;
 	/** The id of the property. */
 	propertyId: number;
 	/** The year of the period ending date for the set of metrics. */
@@ -1142,23 +1254,23 @@ interface PropertyRepresentationType extends _PropertyRepresentationType { const
 
 interface _propertyType extends BaseType {
 	name: string;
-  constructionStatus: constructionStatusType;
-  primaryFunction: primaryFunctionType;
-  grossFloorArea: grossFloorAreaType;
-  irrigatedArea: irrigationAreaType;
-  yearBuilt: number;
-  address: addressType;
-  numberOfBuildings: number;
-  isFederalProperty: boolean;
-  federalOwner: countryList;
-  agency: AgencyType;
-  agencyDepartmentRegion: string;
-  federalCampus: string;
-  occupancyPercentage: OccupancyType;
-  notes: string;
-  isInstitutionalProperty: boolean;
-  accessLevel: shareLevelType;
-  audit: logType;
+	constructionStatus: constructionStatusType;
+	primaryFunction: primaryFunctionType;
+	grossFloorArea: grossFloorAreaType;
+	irrigatedArea: irrigationAreaType;
+	yearBuilt: number;
+	address: addressType;
+	numberOfBuildings: number;
+	isFederalProperty: boolean;
+	federalOwner: countryList;
+	agency: AgencyType;
+	agencyDepartmentRegion: string;
+	federalCampus: string;
+	occupancyPercentage: OccupancyType;
+	notes: string;
+	isInstitutionalProperty: boolean;
+	accessLevel: shareLevelType;
+	audit: logType;
 }
 export interface propertyType extends _propertyType { constructor: { new(): propertyType }; }
 export var propertyType: { new(): propertyType };
@@ -1173,9 +1285,94 @@ interface _refrigeratedWarehouseType extends BaseType {}
 export interface refrigeratedWarehouseType extends _refrigeratedWarehouseType { constructor: { new(): refrigeratedWarehouseType }; }
 export var refrigeratedWarehouseType: { new(): refrigeratedWarehouseType };
 
+interface _report extends BaseType {}
+export interface report extends _report { constructor: { new(): report }; }
+export var report: { new(): report };
+
+interface _ReportErrorType extends BaseType {
+	/** The timestamp when the report was generated */
+	dateGenerated: Date;
+	missingMetrics: ReportErrorTypeMissingMetricsType;
+	/** The total count of the properties in the report */
+	numberOfProperties: number;
+	/** The id of the report. */
+	reportId: number;
+	/** The name of the template. */
+	templateName: string;
+}
+interface ReportErrorType extends _ReportErrorType { constructor: { new(): ReportErrorType }; }
+
+interface _ReportErrorTypeMissingMetricsType extends BaseType {
+	propertyMissingMetric?: ReportErrorTypeMissingMetricsTypePropertyMissingMetricType[];
+}
+interface ReportErrorTypeMissingMetricsType extends _ReportErrorTypeMissingMetricsType { constructor: { new(): ReportErrorTypeMissingMetricsType }; }
+
+interface _ReportErrorTypeMissingMetricsTypePropertyMissingMetricType extends BaseType {
+	propertyId: number;
+	propertyName: string;
+	metric?: ReportErrorTypeMissingMetricsTypePropertyMissingMetricTypeMetricType[];
+	yearEndingDate?: Date;
+}
+interface ReportErrorTypeMissingMetricsTypePropertyMissingMetricType extends _ReportErrorTypeMissingMetricsTypePropertyMissingMetricType { constructor: { new(): ReportErrorTypeMissingMetricsTypePropertyMissingMetricType }; }
+
+interface _ReportErrorTypeMissingMetricsTypePropertyMissingMetricTypeMetricType extends BaseType {
+	/** The id of the metric. */
+	id: number;
+	/** The name of the metric. */
+	name: string;
+	error: string;
+}
+interface ReportErrorTypeMissingMetricsTypePropertyMissingMetricTypeMetricType extends _ReportErrorTypeMissingMetricsTypePropertyMissingMetricTypeMetricType { constructor: { new(): ReportErrorTypeMissingMetricsTypePropertyMissingMetricTypeMetricType }; }
+
+/** The interval of the timeframe (monthly, quarterly, or annual). Only applies to certain timeframes. */
+export type reportingIntervalType = ("MONTHLY" | "QUARTERLY" | "YEARLY");
+interface _reportingIntervalType extends Primitive._string { content: reportingIntervalType; }
+
+interface _reportMetrics extends BaseType {
+	/** A group of metrics. This corresponds to the groups that the metrics are organized into in the user interface. */
+	group: reportMetricsGroupType[];
+}
+export interface reportMetrics extends _reportMetrics { constructor: { new(): reportMetrics }; }
+export var reportMetrics: { new(): reportMetrics };
+
+interface _reportMetricsGroupType extends BaseType {
+	/** The unique identifier of the metric group. */
+	id: number;
+	/** The name of the metric group as it appears in the user interface. */
+	name: string;
+	metrics: reportMetricsGroupTypeMetricsType;
+}
+interface reportMetricsGroupType extends _reportMetricsGroupType { constructor: { new(): reportMetricsGroupType }; }
+
+interface _reportMetricsGroupTypeMetricsType extends BaseType {
+	/** The metric. */
+	metric: reportMetricsGroupTypeMetricsTypeMetricType[];
+}
+interface reportMetricsGroupTypeMetricsType extends _reportMetricsGroupTypeMetricsType { constructor: { new(): reportMetricsGroupTypeMetricsType }; }
+
+interface _reportMetricsGroupTypeMetricsTypeMetricType extends BaseType {
+	/** The flag that determines if the metric is available for use in a Custom Metric. */
+	availableToCustomMetrics: boolean;
+	/** The datatype of the value returned by the metric (text, numeric, or date). */
+	dataType: string;
+	/** The corresponding name of the metric as its displayed in the user interface. */
+	description: string;
+	/** The unique identifier of the metric. */
+	id: number;
+	/** The unique web service metric name identifier to reference the metric. */
+	name: string;
+	/** The unit of measure of the value returned by the metric (if applicable). */
+	uom: string;
+}
+interface reportMetricsGroupTypeMetricsTypeMetricType extends _reportMetricsGroupTypeMetricsTypeMetricType { constructor: { new(): reportMetricsGroupTypeMetricsTypeMetricType }; }
+
 interface _reportMetricValuesWs extends BaseType {
+	/** Indicates whether the metric is automatically generated by the system. */
+	autoGenerated: boolean;
 	/** The month of the period ending date for the set of metrics. */
 	month: string;
+	/** The predefined period type used to generate the report metric */
+	periodType: periodType;
 	/** The year of the period ending date for the set of metrics. */
 	year: string;
 	/** The value of the Monthly metric. */
@@ -1183,6 +1380,34 @@ interface _reportMetricValuesWs extends BaseType {
 }
 export interface reportMetricValuesWs extends _reportMetricValuesWs { constructor: { new(): reportMetricValuesWs }; }
 export var reportMetricValuesWs: { new(): reportMetricValuesWs };
+
+interface _reportStatusDef extends BaseType {
+	/** This field is not currently being used. */
+	description?: string;
+	/** The date and timestamp of when the report generation completed (in EST). */
+	generationEndDate?: Date;
+	/** The date and timestamp of when the report generation started (in EST). */
+	generationStartDate?: Date;
+	/** The status of the report. */
+	status: reportStatusType;
+	/** The date and timestamp of when the report was submitted to be generated (in
+	  * EST). */
+	submittedDate?: Date;
+}
+export interface reportStatusDef extends _reportStatusDef { constructor: { new(): reportStatusDef }; }
+export var reportStatusDef: { new(): reportStatusDef };
+
+/** The report status. */
+export type reportStatusType = ("INITIALIZED" | "SUBMITTED" | "IN_PROCESS" | "FAILED" | "GENERATED" | "READY_FOR_DOWNLOAD" | "GENERATED_WITH_ERRORS" | "SENT");
+interface _reportStatusType extends Primitive._string { content: reportStatusType; }
+
+interface _reportTemplateType extends BaseType {}
+export interface reportTemplateType extends _reportTemplateType { constructor: { new(): reportTemplateType }; }
+export var reportTemplateType: { new(): reportTemplateType };
+
+/** The type of report. */
+export type reportType = ("CUSTOM" | "ENERGY_STAR");
+interface _reportType extends Primitive._string { content: reportType; }
 
 interface _residenceHallDormitoryType extends BaseType {}
 export interface residenceHallDormitoryType extends _residenceHallDormitoryType { constructor: { new(): residenceHallDormitoryType }; }
@@ -1200,6 +1425,16 @@ export var residentPopulationType: { new(): residentPopulationType };
 
 type residentPopulationTypeValueType = ("No specific resident population" | "Dedicated Student" | "Dedicated Military" | "Dedicated Senior/Independent Living" | "Dedicated Special Accessibility Needs" | "Other dedicated housing");
 interface _residentPopulationTypeValueType extends Primitive._string { content: residentPopulationTypeValueType; }
+
+interface _ResponseStatusType extends _reportStatusDef {
+	errors?: ResponseStatusTypeErrorsType;
+	/** The date and timestamp of when the data response was sent to the requester. */
+	sentDate?: Date;
+}
+interface ResponseStatusType extends _ResponseStatusType { constructor: { new(): ResponseStatusType }; }
+
+interface _ResponseStatusTypeErrorsType extends BaseType {}
+interface ResponseStatusTypeErrorsType extends _ResponseStatusTypeErrorsType { constructor: { new(): ResponseStatusTypeErrorsType }; }
 
 /** A response of the operation. */
 interface _responseType extends BaseType {
@@ -1221,6 +1456,9 @@ export var retailType: { new(): retailType };
 interface _selfStorageFacilityType extends BaseType {}
 export interface selfStorageFacilityType extends _selfStorageFacilityType { constructor: { new(): selfStorageFacilityType }; }
 export var selfStorageFacilityType: { new(): selfStorageFacilityType };
+
+interface _SendDataResponseType extends BaseType {}
+interface SendDataResponseType extends _SendDataResponseType { constructor: { new(): SendDataResponseType }; }
 
 interface _seniorLivingCommunityType extends BaseType {}
 export interface seniorLivingCommunityType extends _seniorLivingCommunityType { constructor: { new(): seniorLivingCommunityType }; }
@@ -1280,6 +1518,9 @@ interface _swimmingPoolType extends BaseType {}
 export interface swimmingPoolType extends _swimmingPoolType { constructor: { new(): swimmingPoolType }; }
 export var swimmingPoolType: { new(): swimmingPoolType };
 
+export type systemDeterminedString = "System Determined";
+interface _systemDeterminedString extends Primitive._string { content: systemDeterminedString; }
+
 interface _targetTypePercentageType extends BaseType {
 	value: targetTypePercentageValuesType;
 }
@@ -1297,6 +1538,9 @@ export var targetTypeScoreType: { new(): targetTypeScoreType };
 
 export type targetTypeScoreValuesType = (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99 | 100);
 interface _targetTypeScoreValuesType extends Primitive._number { content: targetTypeScoreValuesType; }
+
+type TemplateTypeType = ("CUSTOM" | "ENERGY_STAR");
+interface _TemplateTypeType extends Primitive._string { content: TemplateTypeType; }
 
 /** Lists of energy uses for the Combination of Tenant and Common Area Consumption metering configuration. At least one must be selected. (Added 11/2011). */
 export type tenantCommonAreaEnergyType = ("Tenant Heating" | "Tenant Cooling" | "Tenant Hot Water" | "Tenant Plug Load/Electricity" | "Common Area Heating" | "Common Area Cooling" | "Common Area Hot Water" | "Common Area Plug Load/Electricity");
@@ -1318,6 +1562,51 @@ export var terminateShareResponseType: { new(): terminateShareResponseType };
 
 type terminateShareResponseTypeNoteType = string;
 type _terminateShareResponseTypeNoteType = Primitive._string;
+
+interface _timeframeType extends BaseType {
+	/** Returns metrics for the baseline period that you set on the "Goals" tab for each individual property. You can have different baselines for different meter types (energy/water/waste). */
+	baselinePeriod: timeframeTypeBaselinePeriodType;
+	/** Returns metrics for each property's baseline period and another year which you specify. */
+	compareBaselinePeriod: timeframeTypeCompareBaselinePeriodType;
+	/** Returns metrics for each property's current year and another year which you specify. */
+	compareCurrentPeriod: timeframeTypeCompareCurrentPeriodType;
+	/** Returns metrics for the most recent year in which each of your properties has a full year of data for the selected meter type (energy/water/waste). This can be a different year for each property. */
+	currentPeriod: timeframeTypeCurrentPeriodType;
+	/** Returns metrics for each property's current year and its baseline year. */
+	currentVsBaseline: timeframeTypeCurrentVsBaselineType;
+	/** Returns metrics for each property on a monthly, quarterly, or annual interval between a start and end date that you specify. */
+	dateRange: timeframeTypeDateRangeType;
+	/** Returns metrics for a specific year that you specify. */
+	singlePeriod: timeframeTypeSinglePeriodType;
+	/** Returns metrics for each property in two specific years that you select. */
+	twoPeriods: timeframeTypeTwoPeriodsType;
+}
+export interface timeframeType extends _timeframeType { constructor: { new(): timeframeType }; }
+export var timeframeType: { new(): timeframeType };
+
+interface _timeframeTypeBaselinePeriodType extends BaseType {}
+interface timeframeTypeBaselinePeriodType extends _timeframeTypeBaselinePeriodType { constructor: { new(): timeframeTypeBaselinePeriodType }; }
+
+interface _timeframeTypeCompareBaselinePeriodType extends BaseType {}
+interface timeframeTypeCompareBaselinePeriodType extends _timeframeTypeCompareBaselinePeriodType { constructor: { new(): timeframeTypeCompareBaselinePeriodType }; }
+
+interface _timeframeTypeCompareCurrentPeriodType extends BaseType {}
+interface timeframeTypeCompareCurrentPeriodType extends _timeframeTypeCompareCurrentPeriodType { constructor: { new(): timeframeTypeCompareCurrentPeriodType }; }
+
+interface _timeframeTypeCurrentPeriodType extends BaseType {}
+interface timeframeTypeCurrentPeriodType extends _timeframeTypeCurrentPeriodType { constructor: { new(): timeframeTypeCurrentPeriodType }; }
+
+interface _timeframeTypeCurrentVsBaselineType extends BaseType {}
+interface timeframeTypeCurrentVsBaselineType extends _timeframeTypeCurrentVsBaselineType { constructor: { new(): timeframeTypeCurrentVsBaselineType }; }
+
+interface _timeframeTypeDateRangeType extends BaseType {}
+interface timeframeTypeDateRangeType extends _timeframeTypeDateRangeType { constructor: { new(): timeframeTypeDateRangeType }; }
+
+interface _timeframeTypeSinglePeriodType extends BaseType {}
+interface timeframeTypeSinglePeriodType extends _timeframeTypeSinglePeriodType { constructor: { new(): timeframeTypeSinglePeriodType }; }
+
+interface _timeframeTypeTwoPeriodsType extends BaseType {}
+interface timeframeTypeTwoPeriodsType extends _timeframeTypeTwoPeriodsType { constructor: { new(): timeframeTypeTwoPeriodsType }; }
 
 export type typeOfEnergyStarPartner = ("Associations" | "Organizations that Own/Manage/Lease Buildings and Plants" | "Service and Product Providers" | "Small Businesses" | "Utilities and Energy Efficiency Program Sponsors" | "Other");
 interface _typeOfEnergyStarPartner extends Primitive._string { content: typeOfEnergyStarPartner; }
@@ -1381,6 +1670,10 @@ interface _UseDetailsType extends BaseType {
 	averageInfluentBiologicalOxygenDemand?: useDecimalType[];
 	/** Annual average number of residents at the property. */
 	averageNumberOfResidents?: useDecimalType[];
+	/** The average number of vehicles in inventory, not including vehicles housed at off-site locations. */
+	averageNumberOfVehiclesInInventory?: useDecimalType[];
+	/** The maximum vertical distance measured from floor to ceiling. */
+	ceilingHeight?: ceilingHeightUnitsType[];
 	/** The distance measured from the floor to the lowest overhead obstruction for the majority of the warehouse space. */
 	clearHeight?: clearHeightUnitsType[];
 	/** Indicates presence of common entrance: Yes and No are 2 options and 1 or 0 is used. */
@@ -1391,6 +1684,12 @@ interface _UseDetailsType extends BaseType {
 	cookingFacilities?: useYesNoType[];
 	/** Level of redundancy for the cooling equipment in a Data Center. */
 	coolingEquipmentRedundancy?: coolingEquipmentRedundancyType[];
+	/** Custom Use Detail #1 */
+	customUseDetail1?: customUseDetailsType[];
+	/** Custom Use Detail #2 */
+	customUseDetail2?: customUseDetailsType[];
+	/** Denotes if a facility delivers mail products directly from the building to offsite customers at their residence or place of business. */
+	deliveryFacility?: useYesNoType[];
 	/** Total enclosed floor area at a Stadium/Arena. */
 	enclosedFloorArea?: optionalFloorAreaType[];
 	enrollment?: useDecimalType[];
@@ -1472,6 +1771,8 @@ interface _UseDetailsType extends BaseType {
 	numberOfLaundryHookupsInAllUnits?: useIntegerType[];
 	/** The total number of laundry hookups in all common areas (counting hookups, whether or not there is a machine). */
 	numberOfLaundryHookupsInCommonArea?: useIntegerType[];
+	/** The number of letters and packages per year is the typical sum of mail products (such as lettermail, flyers, packages, parcels etc.) processed for outbound delivery in this facility in a 12 month period. */
+	numberOfLettersPackagesPerYear?: useIntegerType[];
 	/** Number of MRI Machines. */
 	numberOfMriMachines?: useDecimalType[];
 	/** The Number of Open or Closed Refrigeration/Freezer Units is the count of open or closed cases that are used for the sale or storage of perishable goods. This includes display-type refrigerated open or closed cases and cabinets as well as display-type freezer units typically found on a sales floor. Each case or cabinet section, typically 4 to 12 feet in length, should be considered 1 unit. Include those cases located inside and immediately adjacent to the building. These units may be portable or permanent, and may have doors, plastic strips, or other flexible cover. This count should not include vending machines. If your property is in the design phase, use your best estimate for the intended conditions when the property is fully operational. */
@@ -1589,6 +1890,10 @@ interface _useYesNoType extends _useAttributeBase {
 export interface useYesNoType extends _useYesNoType { constructor: { new(): useYesNoType }; }
 export var useYesNoType: { new(): useYesNoType };
 
+interface _vehicleDealershipType extends BaseType {}
+export interface vehicleDealershipType extends _vehicleDealershipType { constructor: { new(): vehicleDealershipType }; }
+export var vehicleDealershipType: { new(): vehicleDealershipType };
+
 /** Represents verifier info of the property. */
 interface _VerificationType extends BaseType {}
 interface VerificationType extends _VerificationType { constructor: { new(): VerificationType }; }
@@ -1675,14 +1980,14 @@ export interface document extends BaseType {
 	aquarium: otherType;
 	/** Area of all walk-in refrigeration/freezer units - include only commercial type units that a person actually walks into to retrieve goods.  See numberOfWalkInRefrigerationUnits for more information. */
 	areaOfAllWalkInRefrigerationUnits: optionalFloorAreaType;
-	/** Buildings used for the sale of new or used cars and light trucks. */
-	automobileDealership: otherType;
 	/** The concentration of effluent Biological Oxygen Demand (BOD5) at a wastewater treatment plant. */
 	averageEffluentBiologicalOxygenDemand: useDecimalType;
 	/** The concentration of influent Biological Oxygen Demand (BOD5) at a wastewater treatment plant. */
 	averageInfluentBiologicalOxygenDemand: useDecimalType;
 	/** Annual average number of residents at the property. */
 	averageNumberOfResidents: useDecimalType;
+	/** The average number of vehicles in inventory, not including vehicles housed at off-site locations. */
+	averageNumberOfVehiclesInInventory: useDecimalType;
 	/** A commercial banking outlet that offers banking services to walk-in customers. */
 	bankBranch: bankBranchType;
 	/** Buildings used primarily for social/entertainment purposes, and is characterized by most of the revenue being generated from the sale of beverages instead of food. */
@@ -1699,6 +2004,8 @@ export interface document extends BaseType {
 	building: propertyType;
 	/** Buildings primarily used to conduct gambling activities including both electronic and live table games. */
 	casino: otherType;
+	/** The maximum vertical distance measured from floor to ceiling. */
+	ceilingHeight: ceilingHeightUnitsType;
 	/** The distance measured from the floor to the lowest overhead obstruction for the majority of the warehouse space. */
 	clearHeight: clearHeightUnitsType;
 	/** Buildings used for the purpose of higher education. */
@@ -1724,9 +2031,19 @@ export interface document extends BaseType {
 	/** Additional field (outside of Portfolio Manager) that you can prompt a user to provide data through the connection/share process. */
 	customField: CustomFieldType;
 	customFieldList: CustomFieldListType;
+	/** A user-defined property use with custom user-defined use details. */
+	customUse: customUseType;
+	/** Custom Use Detail #1 */
+	customUseDetail1: customUseDetailsType;
+	/** Custom Use Detail #2 */
+	customUseDetail2: customUseDetailsType;
 	/** Buildings specifically designed and equipped to meet the needs of high density computing equipment, such as server racks, used for data storage and processing. */
 	dataCenter: dataCenterType;
 	dataExchangeSettings: DataExchangeSettingsType;
+	dataRequest: dataRequest;
+	dataResponse: dataResponse;
+	/** Denotes if a facility delivers mail products directly from the building to offsite customers at their residence or place of business. */
+	deliveryFacility: useYesNoType;
 	/** The property design characteristics. */
 	design: designBaseType;
 	/** Unrefrigerated Buildings that are used for the temporary storage and redistribution of goods, manufactured products, merchandise or raw materials. */
@@ -1739,6 +2056,8 @@ export interface document extends BaseType {
 	/** Electric Distribution Utility Information */
 	eGridSubregion: EGridSubregionType;
 	eGridSubregionList: EGridSubregionListType;
+	/** Electric vehicle charging station area */
+	electricVehicleChargingStation: evChargingStationType;
 	/** Total enclosed floor area at a Stadium/Arena. */
 	enclosedFloorArea: optionalFloorAreaType;
 	/** Buildings that house multiple stores, often “anchored” by one or more department stores, and with interior walkways. */
@@ -1773,6 +2092,8 @@ export interface document extends BaseType {
 	grantDollars: useDecimalType;
 	/** The Gross Floor Area that is Hotel Conference Space is the total size of all conference spaces. This will be a subset of Gross Floor Area for the property. */
 	grossFloorAreaHotelConferenceSpace: optionalFloorAreaType;
+	/** The Gross Floor Area refers to the total area used for public collection display areas. It is a subset of the total Gross Floor Area. It should not include outdoor public collection display areas. */
+	grossFloorAreaThatIsExhibitSpace: optionalFloorAreaType;
 	/** The Gross Floor Area Used for Food Preparation is the total size of all large/commercial kitchen areas used for the storage and preparation of food. This will be a subset of Gross Floor Area for the property. */
 	grossFloorAreaUsedForFoodPreparation: optionalFloorAreaType;
 	/** Floor area associated with a Gym/Fitness Center. */
@@ -1816,8 +2137,8 @@ export interface document extends BaseType {
 	laundryFacility: onsiteLaundryType;
 	/** Length of all open or closed Refrigeration or Freezer cases that are used for the sale or storage of perishable goods. Include display-type refrigerated open or closed cases and cabinets, as well as display-type freezer units. These are typically found on the sales floor.   See numberOfOpenClosedRefrigerationUnits for more information. */
 	lengthOfAllOpenClosedRefrigerationUnits: lengthOfAllOpenClosedRefrigerationUnitsType;
-	/** Buildings used to store and manage collections of literary and artistic materials such as books, periodicals, newspapers, films, etc. that can be used for reference or lending. */
-	library: otherType;
+	/** Library refers to buildings used to store and manage collections of literary and artistic materials such as books, periodicals, newspapers, films, etc. that can be used for reference or lending. */
+	library: libraryType;
 	license: LicenseType;
 	/** Licensed Bed Capacity is the total number of beds that your hospital is licensed to have in operation. This may be more than your Staffed Beds, which are those that are set up and ready for use. */
 	licensedBedCapacity: useDecimalType;
@@ -1825,8 +2146,8 @@ export interface document extends BaseType {
 	/** A mixed use commercial development that includes retail stores and leisure amenities, where individual retail stores typically contain an entrance accessible from the outside and are not connected by internal walkways. */
 	lifestyleCenter: otherType;
 	log: logType;
-	/** Buildings used as retail establishments dedicated to mail and mailing supplies. */
-	mailingCenterPostOffice: otherType;
+	/** Mailing Center/Post Office refers to buildings used as establishments dedicated to mail and mailing supplies. */
+	mailingCenterPostOffice: mailingCenterPostOfficeType;
 	/** Buildings used for manufacturing or assembling goods. */
 	manufacturingIndustrialPlant: otherType;
 	mapping: mappingType;
@@ -1853,8 +2174,8 @@ export interface document extends BaseType {
 	movieTheater: otherType;
 	/** Residential Buildings that contain more than two residential living units. */
 	multifamilyHousing: multifamilyHousingType;
-	/** Buildings that display collections to outside visitors for public viewing and enjoyment and for informational/educational purposes. */
-	museum: otherType;
+	/** Museum refers to buildings that display collections to outside visitors for public viewing and enjoyment and for informational/educational purposes. 	Gross Floor Area should include all space within the building(s), including but not limited to public collection display areas, meeting rooms, restrooms, classrooms, gift shops, food service areas, administrative/office space, mechanical rooms, storage areas for collections, libraries, elevator shafts, stairwells, and movie theatre space inside the museum. Areas not in enclosed building such as outdoor exhibit, open-air theaters, walkways, and landscaped areas should not be included in the Gross Floor Area. */
+	museum: museumType;
 	/** Unrefrigerated Buildings that are used to store goods, manufactured products, merchandise or raw materials. */
 	nonRefrigeratedWarehouse: nonRefrigeratedWarehouseType;
 	/** Contains the list of notifications that indicate an account, property, or meter is no longer accessible. */
@@ -1875,6 +2196,8 @@ export interface document extends BaseType {
 	numberOfCookingEquipmentUnits: useIntegerType;
 	/** Number of ice sheets specifically for the purpose of the game of curling. */
 	numberOfCurlingSheets: useIntegerType;
+	/** Number of DC Fast electric vehicle charging stations. */
+	numberOfDcFastEvChargingStations: useDecimalType;
 	/** Number of full-time equivalent workers (total number of hours worked by all workers, divided by the standard hours in a full time shift). */
 	numberOfFTEWorkers: useDecimalType;
 	/** Total number of guest meals (also called meal covers) served each year. */
@@ -1887,6 +2210,12 @@ export interface document extends BaseType {
 	numberOfLaundryHookupsInAllUnits: useIntegerType;
 	/** The total number of laundry hookups in all common areas (counting hookups, whether or not there is a machine). */
 	numberOfLaundryHookupsInCommonArea: useIntegerType;
+	/** The number of letters and packages per year is the typical sum of mail products (such as lettermail, flyers, packages, parcels etc.) processed for outbound delivery in this facility in a 12 month period. */
+	numberOfLettersPackagesPerYear: useIntegerType;
+	/** Number of Level One electric vehicle charging stations. */
+	numberOfLevelOneEvChargingStations: useDecimalType;
+	/** Number of Level Two electric vehicle charging stations. */
+	numberOfLevelTwoEvChargingStations: useDecimalType;
 	/** Number of MRI Machines. */
 	numberOfMriMachines: useDecimalType;
 	/** The Number of Open or Closed Refrigeration/Freezer Units is the count of open or closed cases that are used for the sale or storage of perishable goods. This includes display-type refrigerated open or closed cases and cabinets as well as display-type freezer units typically found on a sales floor. Each case or cabinet section, typically 4 to 12 feet in length, should be considered 1 unit. Include those cases located inside and immediately adjacent to the building. These units may be portable or permanent, and may have doors, plastic strips, or other flexible cover. This count should not include vending machines. If your property is in the design phase, use your best estimate for the intended conditions when the property is fully operational. */
@@ -1998,6 +2327,8 @@ export interface document extends BaseType {
 	poolLocation: poolType;
 	/** Approximate size of a swimming pool (Short Course, Recreational, Olympic). */
 	poolSize: poolSizeType;
+	/** Indicates presence of precise humidity and temperature control: Yes and No are 2 options and 1 or 0 is used. */
+	precisionControlsForTemperatureAndHumidity: useYesNoType;
 	/** Buildings used for educational programs or daytime supervision/recreation for young children before they attend Kindergarten. */
 	preschoolDaycare: otherType;
 	/** Prison/Incarceration federal, state, local, or private-sector Buildings used for the detention of persons awaiting trial or convicted of crimes. */
@@ -2017,6 +2348,12 @@ export interface document extends BaseType {
 	refrigeratedWarehouse: refrigeratedWarehouseType;
 	/** Buildings in which some type of repair service is provided.  Examples include vehicle service or repair shops, shoe repair, jewelry repair, locksmiths, etc. */
 	repairServices: otherType;
+	report: report;
+	reportError: ReportErrorType;
+	/** A collection of reporting metrics. */
+	reportMetrics: reportMetrics;
+	reportStatus: reportStatusDef;
+	reportTemplate: reportTemplateType;
 	/** Buildings associated with educational institutions or military facilities which offer multiple accommodations for long-term residents. */
 	residenceHallDormitory: residenceHallDormitoryType;
 	/** Buildings that house and provide care and assistance for elderly residents. */
@@ -2024,6 +2361,7 @@ export interface document extends BaseType {
 	/** An indication of the type of residents living at the property, if applicable (e.g. student, military, senior, etc). */
 	residentPopulation: residentPopulationType;
 	response: responseType;
+	responseStatus: ResponseStatusType;
 	/** Buildings used for preparation and sale of ready-to-eat food and beverages, but which do not fit in the fast food property type.  (Fast casual, casual, and fine dining restaurants). */
 	restaurant: otherType;
 	/** Individual stores used to conduct the retail sale of non-food consumer goods such as clothing, books, toys, sporting goods, office supplies, hardware, and electronics. */
@@ -2036,6 +2374,7 @@ export interface document extends BaseType {
 	seatingCapacity: useDecimalType;
 	/** Refers to buildings that are used for private storage. */
 	selfStorageFacility: selfStorageFacilityType;
+	sendDataResponse: SendDataResponseType;
 	/** Buildings that house and provide care and assistance for elderly residents. */
 	seniorLivingCommunity: seniorLivingCommunityType;
 	/** Contains the information when responding to an accept/reject connection or share request. */
@@ -2069,6 +2408,8 @@ export interface document extends BaseType {
 	/** Any heated swimming pools located either inside or outside. */
 	swimmingPool: swimmingPoolType;
 	targetFinder: unAuthDesignType;
+	/** The type of template. This is ignored in a POST/PUT. */
+	templateType: TemplateTypeType;
 	/** Contains the information when terminating an existing connection or share. */
 	terminateSharingResponse: terminateShareResponseType;
 	totalGrossFloorArea: grossFloorAreaType;
@@ -2081,6 +2422,8 @@ export interface document extends BaseType {
 	/** Buildings used to treat patients, usually on an unscheduled, walk-in basis, who have an injury or illness that requires immediate care but is not serious enough to warrant a visit to an emergency department. */
 	urgentCareClinicOtherOutpatient: otherType;
 	useDetails: UseDetailsType;
+	/** Vehicle Dealership refers to buildings used for the sale of new or used light-, medium- and heavy-duty cars and trucks. */
+	vehicleDealership: vehicleDealershipType;
 	verification: VerificationType;
 	/** Buildings used for the medical care and treatment of animals. */
 	veterinaryOffice: otherType;
