@@ -1,1 +1,1 @@
-export * from './dist/energy-star-tbl/energy-star-tbl-v22.0'
+export * from './dist/energy-star-tbl/energy-star-tbl-v23.0'
